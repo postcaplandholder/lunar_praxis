@@ -1,7 +1,7 @@
 // server/models/user.js
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const { v4: uuidv4 } = require('uuid'); // Ensure you've installed uuid package
+const { v4: uuidv4 } = require('uuid'); 
 
 const sessionSchema = new mongoose.Schema({
   sessionId: { type: String, required: true, default: () => uuidv4() },
