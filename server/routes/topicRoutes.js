@@ -1,4 +1,4 @@
-// server/routes/userRoutes.js
+// server/routes/topicRoutes.js
 const express = require('express');
 const router = express.Router();
 const Topic = require('../models/topic');
