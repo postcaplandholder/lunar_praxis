@@ -7,12 +7,12 @@ const { loginLimiter } = require('../middleware/rateLimitConfig');
 
 const {
   registerUser,
+  verifyEmail,
   loginUser,
   getUserProfile,
   logoutCurrentSession,
   logoutAllSessions,
-  refreshToken,
-  verifyEmail
+  refreshToken
 } = require('../controllers/userController');
 
 router.post('/register', registerUser);
