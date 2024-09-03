@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const topicSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  type: { type: String, required: true, enum: ['Conversation', 'Proposal', 'Support', 'Financial'] },
+  type: { type: String, required: true, enum: ['Message', 'Support', 'Proposal', 'Financial'] },
   content: { type: String, required: false }, // Optional content, e.g., for initial message or proposal description
   participants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // Relevant for Conversation type
   parent: { type: mongoose.Schema.Types.ObjectId, ref: 'Topic', default: null }, // Parent topic for nested structure

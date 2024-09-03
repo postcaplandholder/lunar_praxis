@@ -1,25 +1,41 @@
-// middleware/authenticate.js
+// server/middleware/authenticate.js
 
 const jwt = require('jsonwebtoken');
-const User = require('../models/user'); // Update the path as necessary to correctly point to your User model
+const User = require('../models/user'); // Points to the user model
+const BlacklistedToken = require('../models/blacklistedToken');
 
 const authenticate = async (req, res, next) => {
   try {
     const token = req.header('Authorization').replace('Bearer ', '');
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    // Assuming your User model doesn't store tokens in an array, adjust as necessary
-    const user = await User.findOne({ _id: decoded._id, 'tokens.token': token });
+
+    // Check if the token is blacklisted
+    const blacklisted = await BlacklistedToken.findOne({ token });
+    if (blacklisted) {
+        return res.status(401).send({ error: 'Authentication failed', reason: 'Token is blacklisted' });
+    }
     
+    // Find the user based on _id only
+    const user = await User.findOne({ _id: decoded._id });
     if (!user) {
-      throw new Error('User not found');
+      return res.status(401).send({ error: 'Authentication failed', reason: 'User not found' });
     }
 
     req.user = user;
-    req.token = token; // Optional: If you're using token in your request handlers
+    req.token = token;
     next();
   } catch (error) {
-    res.status(401).send({ error: 'Please authenticate.' });
+    let message = 'Failed to authenticate';
+
+    if (error.name === 'JsonWebTokenError') {
+      message = 'Invalid token';
+    } else if (error.name === 'TokenExpiredError') {
+      message = 'Token has expired';
+    }
+
+    res.status(401).send({ error: 'Authentication failed', reason: message });
   }
 };
+
 
 module.exports = authenticate;

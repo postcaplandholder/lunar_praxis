@@ -1,3 +1,6 @@
+// server/app.js
+
+
 // Environment configuration
 require('dotenv').config();
 
@@ -6,8 +9,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 // Import routes
-const userRoutes = require('./routes/userRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const testRoutes = require('./routes/topicRoutes');
 const topicRoutes = require('./routes/topicRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 // Application setup
 const app = express();
@@ -17,8 +22,10 @@ const port = process.env.PORT || 3000;
 app.use(express.json()); // For parsing application/json
 
 // Routes
-app.use('/users', userRoutes); // User routes
-app.use('/topics', topicRoutes); // Topic routes
+app.use('/admin', adminRoutes);
+app.use('/tests', testRoutes);
+app.use('/topics', topicRoutes);
+app.use('/users', userRoutes);
 
 app.get('/', (req, res) => { // Root route
   res.send('Hello World!');
