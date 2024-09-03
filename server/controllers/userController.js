@@ -33,17 +33,26 @@ exports.registerUser = async (req, res) => {
         await newUser.save();
 
         // Call the sendVerificationEmail function after saving the newUser
-        await sendVerificationEmail(newUser, req);
+        // await sendVerificationEmail(newUser, req);
 
         // Send response back to client indicating that registration was successful
-        // Note: Now we're not sending a session token or sessionId in the response
-        // as the user hasn't verified their email yet.
         res.status(201).send({ user: newUser._id, message: "Registration successful. Please check your email to verify your account." });
     } catch (error) {
-        console.error("Error during user registration:", error);
-        res.status(500).send({ error: "Internal Server Error", details: error.message });
+        // Check if the error is a MongoDB duplicate key error
+        if (error.code === 11000) {
+            // Determine which field caused the duplicate error
+            const field = Object.keys(error.keyPattern)[0];
+            const duplicateValue = error.keyValue[field];
+
+            // Send a user-friendly error message
+            res.status(400).send({ error: `The ${field} '${duplicateValue}' is already in use. Please choose another one.` });
+        } else {
+            console.error("Error during user registration:", error);
+            res.status(500).send({ error: "Internal Server Error", details: error.message });
+        }
     }
 };
+
 
 exports.verifyEmail = async (req, res) => {
     try {
@@ -83,19 +92,25 @@ exports.verifyEmail = async (req, res) => {
 exports.loginUser = async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.username, req.body.password);
-        if (!user.emailVerified) {
-            return res.status(403).send({ error: 'Please verify your email address first.' });
-        }
-        const accessToken = generateToken(user._id, process.env.JWT_SECRET, '15m');
-        const refreshToken = generateToken(user._id, process.env.REFRESH_JWT_SECRET, '7d');
+
+        // Generate both tokens
+        const accessToken = generateToken(user._id, process.env.JWT_SECRET, '15m'); // Example: 15 minutes expiry
+        const refreshToken = generateToken(user._id, process.env.REFRESH_JWT_SECRET, '7d'); // Example: 7 days expiry
+
+        // Save the refresh token to the user document
         user.refreshTokens.push({ token: refreshToken });
         await user.save();
-        setHttpOnlyCookie(res, 'refreshToken', refreshToken, 7 * 24 * 60 * 60 * 1000);
-        res.send({ accessToken });
+
+        // Set the refresh token as a HttpOnly cookie
+        setHttpOnlyCookie(res, 'refreshToken', refreshToken, 7 * 24 * 60 * 60 * 1000); // 7 days expiry
+
+        // Return both tokens in the response
+        res.send({ accessToken, refreshToken }); // <-- Update this line to send both tokens
     } catch (error) {
         res.status(400).send({ error: 'Login failed' });
     }
 };
+
 
 exports.getUserProfile = async (req, res) => {
     try {

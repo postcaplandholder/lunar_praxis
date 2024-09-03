@@ -1,4 +1,4 @@
-// middleware/authenticate.js
+// server/middleware/authenticate.js
 
 const jwt = require('jsonwebtoken');
 const User = require('../models/user'); // Points to the user model
@@ -25,8 +25,14 @@ const authenticate = async (req, res, next) => {
     req.token = token;
     next();
   } catch (error) {
-    // Distinguish error types here based on the exception thrown
-    const message = error.name === 'JsonWebTokenError' ? 'Invalid token' : 'Failed to authenticate';
+    let message = 'Failed to authenticate';
+
+    if (error.name === 'JsonWebTokenError') {
+      message = 'Invalid token';
+    } else if (error.name === 'TokenExpiredError') {
+      message = 'Token has expired';
+    }
+
     res.status(401).send({ error: 'Authentication failed', reason: message });
   }
 };

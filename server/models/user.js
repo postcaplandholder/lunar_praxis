@@ -27,7 +27,6 @@ const userSchema = new mongoose.Schema({
   verificationTokenTimestamp: { type: Date }, //For token expiration for email verification tokens
   loginAttempts: { type: Number, required: true, default: 0 },
   lockUntil: { type: Number },
-  // Add to your userSchema in server/models/user.js
   refreshTokens: [{
     token: { type: String, required: true },
     createdAt: { type: Date, default: Date.now }

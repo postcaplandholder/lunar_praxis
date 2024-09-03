@@ -1,4 +1,4 @@
-// middleware/cookieHandler.js
+// server/middleware/cookieHandler.js
 
 // Function to set a refresh token in an HttpOnly cookie directly
 exports.setHttpOnlyCookie = (res, cookieName, tokenValue, maxAge) => {

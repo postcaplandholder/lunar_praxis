@@ -1,3 +1,6 @@
+// server/app.js
+
+
 // Environment configuration
 require('dotenv').config();
 

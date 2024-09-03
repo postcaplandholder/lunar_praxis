@@ -1,4 +1,4 @@
-// sessionService.js
+// server/services/sessionService.js
 const updateUserSessions = async (user, sessions) => {
     user.sessions = sessions;
     await user.save();

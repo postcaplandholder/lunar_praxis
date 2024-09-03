@@ -1,3 +1,5 @@
+// server/services/emailServices.js
+
 const nodemailer = require('nodemailer');
 
 const sendVerificationEmail = async (user, req) => {
