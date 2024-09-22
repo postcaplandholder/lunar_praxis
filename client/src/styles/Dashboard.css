@@ -1,0 +1,31 @@
+/* src/styles/Dashboard.css */
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Ensures the dashboard takes full viewport height */
+    overflow: hidden; /* Prevents horizontal overflow */
+    position: relative; /* Ensures absolute positioned elements are contained */
+}
+
+.content-container {
+    display: flex;
+    flex: 1;
+    overflow-y: auto; /* Only vertical scrolling within the content */
+    width: 100%; /* Ensure it does not exceed viewport width */
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto; /* Allows scrolling within the content area */
+    border-right: 1px solid #ddd;
+}
+
+.expand-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}

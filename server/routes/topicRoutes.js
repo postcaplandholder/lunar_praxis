@@ -1,19 +1,17 @@
 // server/routes/topicRoutes.js
 const express = require('express');
 const router = express.Router();
-const Topic = require('../models/topic');
+const topicController = require('../controllers/topicController');
 
-// POST /topics/start a new topic
-router.post('/topics', async (req, res) => {
-    try {
-      const { title, type, content, participants, parent, createdBy } = req.body;
-      const newTopic = new Topic({ title, type, content, participants, parent, createdBy });
-      await newTopic.save();
-      res.status(201).json(newTopic);
-    } catch (error) {
-      res.status(400).json({ message: "Error creating topic", error: error.message });
-    }
-  });
-  
+// Routes
+router.post('/topics', topicController.createTopic);
+router.get('/topics', topicController.getAllTopics);
+router.get('/topics/:id', topicController.getTopicById);
+router.put('/topics/:id', topicController.updateTopic);
+router.delete('/topics/:id', topicController.deleteTopic);
+
+// Topic Types routes
+router.get('/topic-types', topicController.getTopicTypes); // Fetch all topic types
+// Add more routes to create, delete topic types if needed...
 
 module.exports = router;

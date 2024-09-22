@@ -1,0 +1,178 @@
+/* src/styles/ContentTable.css */
+
+/* Container for the table */
+.content-table-container {
+  padding: 20px;
+}
+
+/* Styles for the table */
+.content-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.content-table th {
+  white-space: nowrap; /* Prevent header text from wrapping */
+}
+
+.content-table td {
+  word-wrap: break-word; /* Allow content to wrap within cells */
+}
+
+/* Action icon button inside the table */
+.action-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Participant button styling */
+.participant-button {
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-color: #e0e0e0;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+/* Styling for bold dialog text */
+.dialog-content {
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px; /* Add margin to give space between the text and buttons */
+}
+
+/* Style for the action, confirmation, and participants dialogs */
+.action-dialog,
+.confirm-dialog,
+.participants-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  background-color: #f9f9f9;
+  border: 2px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 1000;
+  text-align: center;
+  border-radius: 8px; /* Adding rounded corners */
+}
+
+/* Overlay for dialogs */
+.action-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4); /* Semi-transparent background for overlay */
+  z-index: 999;
+}
+
+/* Styling for all buttons in dialogs */
+.action-dialog button,
+.confirm-dialog button,
+.participants-dialog button {
+  display: block;
+  width: 100%;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+}
+
+/* Common styles for dialog buttons */
+.dialog-button {
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+}
+
+.dialog-button.confirm-button {
+  background-color: green;
+  color: white;
+}
+
+.dialog-button.cancel-button {
+  background-color: red;
+  color: white;
+}
+
+
+/* Only apply blue color to action buttons, not cancel */
+.action-dialog button:not(.cancel-button) {
+  background-color: #007bff; /* Blue color */
+  color: white;
+}
+
+
+.participants-dialog button:not(.cancel-button) {
+  background-color: #007bff; /* Blue color */
+  color: white;
+}
+
+
+/* Red cancel button styling */
+.cancel-button {
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+}
+
+
+/* Specific styling for confirmation buttons */
+.confirm-button {
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  font-weight: bold; /* Make the button text bold */
+}
+
+
+/* Participants dialog table */
+.participants-dialog table {
+  width: 100%;
+  margin: 20px 0;
+}
+
+.participants-dialog td {
+  padding: 5px 0;
+  text-align: left;
+}
+
+/* Stacking buttons in the action dialog vertically */
+.action-dialog button {
+  margin: 10px 0;
+}
