@@ -1,0 +1,18 @@
+/* src/styles/TopNavBar.css */
+
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Aligns items to left and right */
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .navbar-left {
+    margin-right: auto; /* Moves the left side to the start */
+  }
+  
+  .navbar-right {
+    margin-left: auto; /* Moves the right side to the end */
+  }
+  

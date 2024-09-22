@@ -1,0 +1,11 @@
+.footer {
+    padding: 10px;
+    text-align: center;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    position: fixed; /* Change to fixed to always stay at the bottom */
+    bottom: 0;
+    width: 100%;
+    left: 0; /* Ensures it spans full width of the page */
+    z-index: 10; /* Ensure it is above other elements */
+}

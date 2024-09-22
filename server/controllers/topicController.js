@@ -1,5 +1,16 @@
 // server/controllers/topicController.js
 const Topic = require('../models/topic');
+const TopicType = require('../models/topicType'); // Import the new TopicType model
+
+// Fetch unique topic types from the DB
+exports.getTopicTypes = async (req, res) => {
+  try {
+    const topicTypes = await TopicType.find().select('name title'); // Select name and title
+    res.json(topicTypes);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch topic types' });
+  }
+};
 
 // Create a new topic
 exports.createTopic = async (req, res) => {

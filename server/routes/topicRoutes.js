@@ -10,4 +10,8 @@ router.get('/topics/:id', topicController.getTopicById);
 router.put('/topics/:id', topicController.updateTopic);
 router.delete('/topics/:id', topicController.deleteTopic);
 
+// Topic Types routes
+router.get('/topic-types', topicController.getTopicTypes); // Fetch all topic types
+// Add more routes to create, delete topic types if needed...
+
 module.exports = router;
